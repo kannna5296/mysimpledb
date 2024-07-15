@@ -3,6 +3,9 @@ package simpledb.file;
 import java.nio.ByteBuffer;
 import java.nio.charset.*;
 
+/**
+ * setBytesでセットしたものをgetIntでとるとバグるっぽい？
+ */
 public class Page {
    private ByteBuffer bb;
    public static Charset CHARSET = StandardCharsets.US_ASCII;
@@ -21,6 +24,11 @@ public class Page {
       return bb.getInt(offset);
    }
 
+   /**
+    * ページの特定の場所にint型を配置する
+    * @param offset
+    * @param n
+    */
    public void setInt(int offset, int n) {
       bb.putInt(offset, n);
    }
@@ -33,6 +41,11 @@ public class Page {
       return b;
    }
 
+   /**
+    * ページの特定の場所にbytearray型を配置する
+    * @param offset
+    * @param b
+    */
    public void setBytes(int offset, byte[] b) {
       bb.position(offset);
       bb.putInt(b.length);
